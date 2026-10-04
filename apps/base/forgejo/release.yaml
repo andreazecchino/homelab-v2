@@ -20,3 +20,17 @@ spec:
     gitea:
       admin:
         existingSecret: forgejo-admin-secret
+    httpRoute:
+      enabled: true
+      parentRefs:
+        - name: envoy
+          namespace: envoy-gateway-system
+          sectionName: https
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+          backendRefs:
+            - name: forgejo-http
+              port: 3000
