@@ -12,7 +12,7 @@ metadata:
   name: local-ca
   namespace: cert-manager
 spec:
-  isCA: false
+  isCA: true
   commonName: local-ca
   subject:
     organizations:
