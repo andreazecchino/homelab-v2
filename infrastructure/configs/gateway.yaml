@@ -4,12 +4,7 @@ kind: GatewayClass
 metadata:
   name: envoy
 spec:
-  controllerName: gateway.envoyproxy.io/gateway-controller
-  parametersRef:
-    group: gateway.envoyproxy.io
-    kind: EnvoyProxy
-    name: envoy-proxy
-    namespace: envoy-gateway-system
+  controllerName: gateway.envoyproxy.io/gatewayclass-controller
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
@@ -30,6 +25,12 @@ metadata:
   namespace: envoy-gateway-system
 spec:
   gatewayClassName: envoy
+  infrastructure:
+    parametersRef:
+      group: gateway.envoyproxy.io
+      kind: EnvoyProxy
+      name: envoy-proxy
+      namespace: envoy-gateway-system
   listeners:
     - name: https
       protocol: HTTPS
