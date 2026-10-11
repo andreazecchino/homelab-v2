@@ -43,7 +43,7 @@ spec:
       name: nfs-client
       provisionerName: nfs-storage
       defaultClass: false
-      reclaimPolicy: Delete
+      reclaimPolicy: Retain
       allowVolumeExpansion: false
       pathPattern: "${.PVC.namespace}/${.PVC.name}"
       onDelete: delete

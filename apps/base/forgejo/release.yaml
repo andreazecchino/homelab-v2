@@ -20,6 +20,8 @@ spec:
     gitea:
       admin:
         existingSecret: forgejo-admin-secret
+    persistence:
+      claimName: forgejo-data
     ingress:
       enabled: true
       className: traefik
