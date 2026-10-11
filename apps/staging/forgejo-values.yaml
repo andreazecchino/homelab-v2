@@ -10,7 +10,8 @@ spec:
       hosts:
         - host: forgejo.home.arpa
       tls:
-        - hosts:
+        - secretName: local-ca-secret
+          hosts:
             - forgejo.home.arpa
     httpRoute:
       enabled: false

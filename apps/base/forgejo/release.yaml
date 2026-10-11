@@ -25,7 +25,8 @@ spec:
       annotations:
         cert-manager.io/cluster-issuer: local-ca
       hosts:
-        - paths:
+        - host: forgejo.local
+          paths:
             - path: /
               pathType: Prefix
               backend:
@@ -33,8 +34,6 @@ spec:
                   name: forgejo-http
                   port:
                     number: 3000
-      tls:
-        - secretName: local-ca-secret
     # httpRoute:
     #   parentRefs:
     #     - name: envoy
