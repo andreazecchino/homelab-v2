@@ -17,7 +17,6 @@ spec:
     spec:
       terminationGracePeriodSeconds: 30
       initContainers:
-      initContainers:
         - name: forgejo-register
           image: "data.forgejo.org/forgejo/runner:13"
           workingDir: /data
