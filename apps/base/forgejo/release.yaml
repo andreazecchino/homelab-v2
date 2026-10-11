@@ -20,19 +20,32 @@ spec:
     gitea:
       admin:
         existingSecret: forgejo-admin-secret
-    httpRoute:
+    ingress:
       enabled: true
-      parentRefs:
-        - name: envoy
-          namespace: envoy-gateway-system
-          sectionName: https
-      hostnames:
-        - "forgejo.home.arpa"
-      rules:
-        - matches:
-            - path:
-                type: PathPrefix
-                value: /
-          backendRefs:
-            - name: forgejo-http
-              port: 3000
+      className: traefik
+      hosts:
+        - host: forgejo.home.arpa
+          paths:
+            - path: /
+              pathType: Prefix
+              port: https
+      tls:
+        - secretName: local-ca-secret
+          hosts:
+            - forgejo.home.arpa
+    # httpRoute:
+    #   enabled: true
+    #   parentRefs:
+    #     - name: envoy
+    #       namespace: envoy-gateway-system
+    #       sectionName: https
+    #   hostnames:
+    #     - "forgejo.home.arpa"
+    #   rules:
+    #     - matches:
+    #         - path:
+    #             type: PathPrefix
+    #             value: /
+    #       backendRefs:
+    #         - name: forgejo-http
+    #           port: 3000
