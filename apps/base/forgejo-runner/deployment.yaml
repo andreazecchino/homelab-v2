@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forgejo-runner
+  namespace: forgejo
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: forgejo-runner
+  template:
+    metadata:
+      labels:
+        app: forgejo-runner
+    spec:
+      terminationGracePeriodSeconds: 30
+      initContainers:
+      initContainers:
+        - name: forgejo-register
+          image: "data.forgejo.org/forgejo/runner:13"
+          workingDir: /data
+          command: ["bash", "-ec"]
+          args:
+            - |
+              if [ -e runner-config.yml ] ; then echo "runner-config.yml already exists"; exit 0; fi;
+              forgejo-runner generate-config > runner-config.yml ;
+              chown -R 1000:1000 /data
+          volumeMounts:
+            - name: forgejo-runner-data
+              mountPath: /data
+      containers:
+        - name: forgejo-runner
+          image: "data.forgejo.org/forgejo/runner:13"
+          workingDir: /data
+          command: ["forgejo-runner", "daemon", "--config", "/data/runner-config.yml"]
+          env:
+            - name: DOCKER_HOST
+              value: tcp://localhost:2375
+          volumeMounts:
+            - name: forgejo-runner-data
+              mountPath: /data
+            - name: forgejo-runner-config
+              mountPath: /data/runner-config.yml
+              subPath: runner-config.yml
+        - name: docker-in-docker
+          image: "data.forgejo.org/oci/docker:dind"
+          command: ['dockerd', '-H', 'tcp://localhost:2375', '--tls=false']
+          securityContext:
+            privileged: true 
+      volumes:
+        - name: forgejo-runner-data
+          persistentVolumeClaim:
+            claimName: forgejo-runner-data
