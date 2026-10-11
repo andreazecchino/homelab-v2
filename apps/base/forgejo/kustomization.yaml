@@ -6,4 +6,4 @@ resources:
   - repository.yaml
   - release.yaml
   - secrets.yaml
-  - pvc.yaml
+  # - pvc.yaml

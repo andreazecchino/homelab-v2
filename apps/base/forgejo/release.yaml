@@ -22,6 +22,10 @@ spec:
         existingSecret: forgejo-admin-secret
     persistence:
       claimName: forgejo-data
+      size: 32Gi
+      accessModes:
+        - ReadWriteMany
+      storageClass: nfs-client
     ingress:
       enabled: true
       className: traefik
