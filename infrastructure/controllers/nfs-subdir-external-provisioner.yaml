@@ -46,7 +46,7 @@ spec:
       reclaimPolicy: Retain
       allowVolumeExpansion: false
       pathPattern: "${.PVC.namespace}/${.PVC.name}"
-      onDelete: delete
+      onDelete: retain
 
     resources:
       requests:
