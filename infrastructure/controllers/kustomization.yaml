@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - nfs-subdir-external-provisioner.yaml
   - cert-manager.yaml
-  - envoy-gateway.yaml
+  # - envoy-gateway.yaml
