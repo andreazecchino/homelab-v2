@@ -5,15 +5,6 @@ metadata:
   namespace: forgejo
 spec:
   values:
-    ingress:
-      enabled: true
-      hosts:
-        - host: forgejo.home.arpa
-      tls:
-        - secretName: local-ca-secret
-          hosts:
-            - forgejo.home.arpa
     httpRoute:
-      enabled: false
       hostnames:
         - forgejo.home.arpa

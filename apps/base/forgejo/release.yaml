@@ -21,11 +21,12 @@ spec:
       admin:
         existingSecret: forgejo-admin-secret
     ingress:
+      enabled: true
       className: traefik
       annotations:
         cert-manager.io/cluster-issuer: local-ca
       hosts:
-        - host: forgejo.local
+        - host: forgejo.home.arpa
           paths:
             - path: /
               pathType: Prefix
@@ -34,11 +35,17 @@ spec:
                   name: forgejo-http
                   port:
                     number: 3000
+      tls:
+        - secretName: local-ca-secret
+          hosts:
+            - forgejo.home.arpa
     # httpRoute:
+    #   enabled: true
     #   parentRefs:
     #     - name: envoy
     #       namespace: envoy-gateway-system
     #       sectionName: https
+    #     - "forgejo.home.arpa"
     #   rules:
     #     - matches:
     #         - path:
