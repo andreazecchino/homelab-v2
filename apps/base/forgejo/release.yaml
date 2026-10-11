@@ -24,7 +24,7 @@ spec:
       enabled: true
       className: traefik
       annotations:
-        cert-manager.io/cluster-issuer: local-ca-secret
+        cert-manager.io/cluster-issuer: local-ca
       hosts:
         - host: forgejo.home.arpa
           paths:
@@ -32,7 +32,7 @@ spec:
               pathType: Prefix
               port: https
       tls:
-        - secretName: forgejo-local-tls
+        - secretName: local-ca-secret
           hosts:
             - forgejo.home.arpa
     # httpRoute:
