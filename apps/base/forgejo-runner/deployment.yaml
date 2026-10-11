@@ -40,9 +40,6 @@ spec:
           volumeMounts:
             - name: forgejo-runner-data
               mountPath: /data
-            - name: forgejo-runner-config
-              mountPath: /data/runner-config.yml
-              subPath: runner-config.yml
         - name: docker-in-docker
           image: "data.forgejo.org/oci/docker:dind"
           command: ['dockerd', '-H', 'tcp://localhost:2375', '--tls=false']
