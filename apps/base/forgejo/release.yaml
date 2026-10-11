@@ -31,6 +31,11 @@ spec:
             - path: /
               pathType: Prefix
               port: https
+              backend:
+                service:
+                  name: forgejo-http
+                  port:
+                    number: 3000
       tls:
         - secretName: local-ca-secret
           hosts:
